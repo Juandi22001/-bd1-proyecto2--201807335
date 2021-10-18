@@ -102,13 +102,12 @@ create table Eleccion
 (
     ID_Eleccion  INT AUTO_INCREMENT,
     AÑO_ELECCION VARCHAR(100),
-    TipoEleccion INT,
+    TipoEleccion varchar(100),
     id_pais      INT,
 
 
     PRIMARY KEY (ID_Eleccion),
 
-    Foreign key (TipoEleccion) references Tipo_Eleccion(ID_TipoEleccion),
     Foreign key (id_pais) references Pais(id_pais)
 
 
