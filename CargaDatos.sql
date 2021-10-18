@@ -59,29 +59,41 @@ where  temporal.pais=pais.nombre_pais
 
 ;
 
+--LLENANDO LA TABLA SEXO  2
+INSERT INTO SEXO( SEXO) SELECT  DISTINCT  TEMPORAL.SEXO FROM TEMPORAL;
+--LLENANDO LA TABLA RAZA 3 RESULTADOS 
+INSERT INTO RAZA( RAZA) SELECT  DISTINCT  TEMPORAL.RAZA FROM TEMPORAL;
 
 -- Llenando la tabla    resultados 
 
 
-select count(*)
-from (
-         Select distinct temporal.Analfabetos,
-                         temporal.Alfabetos,
-                         TEMPORAL.Primaria,
-                         temporal.Nivel_Medio,
-                         temporal.Universitarios,
 
+INSERT INTO Resultado(analafabetas, alfabetas, primaria, nivel_medio, universitarios, id_municipio, id_eleccion, id_sexo, id_raza
+                    )
+Select temporal.Analfabetos,
+       TEMPORAL.Alfabetos,
+       TEMPORAL.Primaria,
+       TEMPORAL.Nivel_Medio,
+       TEMPORAL.Universitarios,
 
-                         Municipio.ID_Municipio,
+       Municipio.ID_Municipio,
 
-                         eleccion.ID_Eleccion
-         from temporal
-                  inner join pais on temporal.pais = pais.nombre_pais
-                  inner join region on temporal.region = region.nombre_Region and region.ID_PAIS = pais.ID_PAIS
-                  inner join departamento on Departamento.nombre_Departamento = temporal.Departamento and
-                                             Departamento.ID_REGION = region.ID_Region
-                  inner join municipio on Municipio.nombre_Municipio = temporal.Municipio and
-                                          departamento.ID_Departamento = municipio.ID_departamento
-                  inner join eleccion
-                             on Eleccion.TipoEleccion = temporal.nombre_eleccion and
-                                eleccion.id_pais = pais.ID_PAIS) as efe;
+       eleccion.ID_Eleccion,
+        s.id_sexo,r.id_raza
+
+from temporal
+         inner join pais on temporal.pais = pais.nombre_pais
+         inner join region on temporal.region = region.nombre_Region and region.ID_PAIS = pais.ID_PAIS
+         inner join departamento on Departamento.nombre_Departamento = temporal.Departamento and
+                                    Departamento.ID_REGION = region.ID_Region
+         inner join municipio on Municipio.nombre_Municipio = temporal.Municipio and
+                                 departamento.ID_Departamento = municipio.ID_departamento
+         inner join eleccion
+                    on Eleccion.TipoEleccion = temporal.nombre_eleccion and
+                       eleccion.id_pais = pais.ID_PAIS
+
+         inner join sexo s on temporal.Sexo = s.sexo
+         inner join raza r on temporal.Raza = r.RAZA
+
+;
+
