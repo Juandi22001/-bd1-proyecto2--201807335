@@ -115,6 +115,40 @@ create table Eleccion
 
 use Proyecto2Bases;
 
+
+
+
+create table Sexo
+(
+    Id_Sexo   INT AUTO_INCREMENT,
+
+    Id_Municipio   INT,
+    Id_Eleccion    INT,
+    sexo varchar(100),
+
+        PRIMARY KEY (Id_Sexo),
+
+    Foreign key (Id_Eleccion) references eleccion (ID_Eleccion),
+    Foreign key (Id_Municipio) references municipio (id_municipio)
+
+
+);
+create table Raza
+(
+    Id_Raza   INT AUTO_INCREMENT,
+
+    Id_Municipio   INT,
+    Id_Eleccion    INT,
+    RAZA VARCHAR(100),
+
+        PRIMARY KEY (Id_Raza),
+
+    Foreign key (Id_Eleccion) references eleccion (ID_Eleccion),
+    Foreign key (Id_Municipio) references municipio (id_municipio)
+
+
+);
+
 create table Resultado
 (
     Id_Resultado   INT AUTO_INCREMENT,
@@ -125,12 +159,13 @@ create table Resultado
     Universitarios INT,
     Id_Municipio   INT,
     Id_Eleccion    INT,
+    Id_Partido INT ,
 
     PRIMARY KEY (Id_Resultado),
 
     Foreign key (Id_Eleccion) references eleccion (ID_Eleccion),
-    Foreign key (Id_Municipio) references municipio (id_municipio)
-
+    Foreign key (Id_Municipio) references municipio (id_municipio),
+  Foreign key (Id_Partido) references Partido (id_partido)
 
 );
 
