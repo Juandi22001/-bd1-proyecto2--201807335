@@ -125,6 +125,52 @@ where total1.pais = total2.pais
 group by total1.pais, total2.raza
 order by total1.pais
 
+
+--consulta 11
+
+
+select total1.pais,TOTAL1.SUMA AS MUJERES_ANALFABETAS, total1.SUMA*100/total2.SUMA  AS PORCENTAJE  from (
+
+select p.nombre_pais                                            pais,
+
+             RAZA.rAZA,
+            s.sexo,
+             ( sum(resultado.Alfabetas)) SUMA
+      FROM raza
+               inner join resultado on raza.Id_Raza = resultado.id_raza
+
+               inner join municipio m on resultado.Id_Municipio = m.ID_Municipio
+               inner join departamento d on m.ID_departamento = d.ID_Departamento
+               inner join region r on d.ID_REGION = r.ID_Region
+               inner join pais p on r.ID_PAIS = p.ID_PAIS
+               inner join sexo s on resultado.id_sexo = s.Id_Sexo
+    where s.sexo='mujeres' and  raza.raza='INDIGENAS'
+
+      group by p.nombre_pais,  RAZA.RAZA,s.sexo
+      order by p.nombre_pais) as total1 ,
+
+
+(
+
+select p.nombre_pais                                            pais,
+
+
+             ( sum(resultado.Alfabetas)+sum(resultado.Analafabetas)) SUMA
+      FROM raza
+               inner join resultado on raza.Id_Raza = resultado.id_raza
+
+               inner join municipio m on resultado.Id_Municipio = m.ID_Municipio
+               inner join departamento d on m.ID_departamento = d.ID_Departamento
+               inner join region r on d.ID_REGION = r.ID_Region
+               inner join pais p on r.ID_PAIS = p.ID_PAIS
+               inner join sexo s on resultado.id_sexo = s.Id_Sexo
+
+
+      group by p.nombre_pais
+      order by p.nombre_pais) as total2
+WHERE TOTAL1.pais=TOTAL2.PAIS
+;
+
 --consulta 12 
 
 
