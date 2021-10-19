@@ -124,3 +124,47 @@ where total1.pais = total2.pais
 
 group by total1.pais, total2.raza
 order by total1.pais
+
+
+-- consulta 13
+
+
+select  total1.pais,total1.nombre_Departamento,total1.suma from (
+select p.nombre_pais                                            pais,
+               d.nombre_Departamento,
+
+                (sum(resultado.Alfabetas) + sum(resultado.Analafabetas)) SUMA
+         from resultado
+                  inner join municipio m on resultado.Id_Municipio = m.ID_Municipio
+                  inner join departamento d on m.ID_departamento = d.ID_Departamento
+                  inner join region r on d.ID_REGION = r.ID_Region
+                  inner join pais p on r.ID_PAIS = p.ID_PAIS
+
+         where nombre_pais='GUATEMALA'
+
+         group by p.nombre_pais, d.nombre_Departamento
+         order by p.nombre_pais) as total1
+,
+
+
+
+(
+select p.nombre_pais                                            pais,
+               d.nombre_Departamento,
+
+                (sum(resultado.Alfabetas) + sum(resultado.Analafabetas)) SUMA
+         from resultado
+                  inner join municipio m on resultado.Id_Municipio = m.ID_Municipio
+                  inner join departamento d on m.ID_departamento = d.ID_Departamento
+                  inner join region r on d.ID_REGION = r.ID_Region
+                  inner join pais p on r.ID_PAIS = p.ID_PAIS
+
+         where nombre_pais='GUATEMALA'  and nombre_Departamento ='Guatemala'
+
+         group by p.nombre_pais, d.nombre_Departamento
+         order by p.nombre_pais) as total2
+
+where total1.SUMA>total2.SUMA
+
+order by total1.nombre_Departamento
+
