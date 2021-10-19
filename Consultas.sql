@@ -40,7 +40,39 @@ from (select temp1.pais pais, temp1.region region, max(temp1.suma) maximo
      on total1.pais = total2.pais and total1.region = total2.region and total1.maximo = total2.SUMA and
         total2.RAZA = 'INDIGENAS'
 
-ORDER BY total1.PAI
+ORDER BY total1.PAIs
+
+--consulta7
+select total1.pais,total1.region , total1.SUMA/total2.nDepartamentos
+from (
+         select p.nombre_pais                                            pais,
+                r.nombre_Region                                          region,
+
+                (sum(resultado.Alfabetas) + sum(resultado.Analafabetas)) SUMA
+         from resultado
+                  inner join municipio m on resultado.Id_Municipio = m.ID_Municipio
+                  inner join departamento d on m.ID_departamento = d.ID_Departamento
+                  inner join region r on d.ID_REGION = r.ID_Region
+                  inner join pais p on r.ID_PAIS = p.ID_PAIS
+                  inner join eleccion e on p.ID_PAIS = e.id_pais
+
+         group by p.nombre_pais, r.nombre_Region
+         order by p.nombre_pais) as total1
+         inner join
+
+     (
+         select pais.nombre_pais pais , r.nombre_Region region, count(*) as nDepartamentos
+         from pais
+                  inner join region r on pais.ID_PAIS = r.ID_PAIS
+                  inner join departamento d on r.ID_Region = d.ID_REGION
+         group by pais.nombre_pais, r.nombre_Region
+     ) as total2
+
+     on total1.pais= total2.pais and total1.region = total2.region
+
+   order by total1.pais
+
+
 --consulta 8
 
 
