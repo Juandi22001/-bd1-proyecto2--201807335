@@ -125,7 +125,44 @@ where total1.pais = total2.pais
 group by total1.pais, total2.raza
 order by total1.pais
 
+--consulta 12 
 
+
+
+select total1.pais pais , total2.SUMA *100 / total1.SUMA as efe
+from (select p.nombre_pais                                            pais,
+
+             (sum(resultado.Alfabetas) + sum(resultado.Analafabetas)) SUMA
+      from resultado
+               inner join municipio m on resultado.Id_Municipio = m.ID_Municipio
+               inner join departamento d on m.ID_departamento = d.ID_Departamento
+               inner join region r on d.ID_REGION = r.ID_Region
+               inner join pais p on r.ID_PAIS = p.ID_PAIS
+
+
+      group by p.nombre_pais
+      order by p.nombre_pais) as total1,
+
+     (
+
+
+select p.nombre_pais               pais,
+
+       sum(resultado.Analafabetas) SUMA
+from resultado
+         inner join municipio m on resultado.Id_Municipio = m.ID_Municipio
+         inner join departamento d on m.ID_departamento = d.ID_Departamento
+         inner join region r on d.ID_REGION = r.ID_Region
+         inner join pais p on r.ID_PAIS = p.ID_PAIS
+
+
+group by p.nombre_pais
+order by p.nombre_pais) as total2
+
+WHERE total1.pais=total2.pais
+
+group by  total1.pais order by  efe desc
+limit 1
 -- consulta 13
 
 
