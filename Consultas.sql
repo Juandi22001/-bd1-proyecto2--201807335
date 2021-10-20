@@ -139,7 +139,71 @@ from (select temp1.pais pais, temp1.region region, max(temp1.suma) maximo
         total2.RAZA = 'INDIGENAS'
 
 ORDER BY total1.PAIs
+--consulta 6
 
+
+
+select total2.departamento,total2.SEXO,total2.suma *100 /total1.SUMA from (
+  select p.nombre_pais                                            pais,
+                d.nombre_Departamento                                          departamento,
+
+                (sum(resultado.Universitarios)) SUMA
+         from resultado
+                  inner join municipio m on resultado.Id_Municipio = m.ID_Municipio
+                  inner join departamento d on m.ID_departamento = d.ID_Departamento
+                  inner join region r on d.ID_REGION = r.ID_Region
+                  inner join pais p on r.ID_PAIS = p.ID_PAIS
+                  inner join eleccion e on p.ID_PAIS = e.id_pais
+
+         group by p.nombre_pais, d.nombre_Departamento
+         order by p.nombre_pais) total1 ,
+
+
+
+
+(SELECT totalm.pais pais,totalM.departamento departamento,totalM.SEXO sexo,totalM.SUMA suma from
+(select p.nombre_pais                                            pais,
+                d.nombre_Departamento                                          departamento,
+                sexo.sexo SEXO,
+
+                (sum(resultado.Universitarios)) SUMA
+         from     sexo inner join resultado on resultado.id_Sexo=sexo.Id_Sexo
+                  inner join municipio m on resultado.Id_Municipio = m.ID_Municipio
+                  inner join departamento d on m.ID_departamento = d.ID_Departamento
+                  inner join region r on d.ID_REGION = r.ID_Region
+                  inner join pais p on r.ID_PAIS = p.ID_PAIS
+                  inner join eleccion e on p.ID_PAIS = e.id_pais
+           where sexo.sexo='hombres'
+
+         group by p.nombre_pais, d.nombre_Departamento,sexo.sexo
+         order by p.nombre_pais) as totalH,
+
+
+  (select p.nombre_pais                                            pais,
+                d.nombre_Departamento                                          departamento,
+                sexo.sexo SEXO,
+
+                (sum(resultado.Universitarios)) SUMA
+         from     sexo inner join resultado on resultado.id_Sexo=sexo.Id_Sexo
+                  inner join municipio m on resultado.Id_Municipio = m.ID_Municipio
+                  inner join departamento d on m.ID_departamento = d.ID_Departamento
+                  inner join region r on d.ID_REGION = r.ID_Region
+                  inner join pais p on r.ID_PAIS = p.ID_PAIS
+                  inner join eleccion e on p.ID_PAIS = e.id_pais
+           where sexo.sexo='mujeres'
+
+         group by p.nombre_pais, d.nombre_Departamento,sexo.sexo
+         order by p.nombre_pais) totalM
+
+
+   where totalM.pais= totalH.pais and totalM.departamento= totalH.departamento and totalM.SUMA>totalH.SUMA
+    group by  totalM.pais, totalM.departamento, totalM.SEXO, totalM.SUMA) as total2
+
+
+ where total1.departamento= total2.departamento
+
+
+  order by  total2.departamento
 --consulta7
 select total1.pais,total1.region , total1.SUMA/total2.nDepartamentos
 from (
