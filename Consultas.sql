@@ -343,6 +343,46 @@ where total1.pais = total2.pais
 group by total1.pais, total2.raza
 order by total1.pais
 
+-- consulta 10
+
+select total1.pais , total1.max-total2.min Diferencia  from (
+                  select temporal1.pais pais, max(temporal1.suma) max
+                  from (select p.nombre_pais                          pais,
+
+                               Partido.Nombre_Partido                 partido,
+                               sum(r.Alfabetas) + sum(r.Analafabetas) suma
+                        from partido
+                                 inner join resultado r on partido.ID_partido = r.Id_Partido
+                                 inner join municipio m on r.Id_Municipio = m.ID_Municipio
+                                 inner join departamento d on m.ID_departamento = d.ID_Departamento
+                                 inner join region r2 on d.ID_REGION = r2.ID_Region
+                                 inner join pais p on r2.ID_PAIS = p.ID_PAIS
+                                 inner join eleccion e on p.ID_PAIS = e.id_pais
+                        group by p.nombre_pais, Partido.Nombre_Partido) as temporal1
+                  group by temporal1.pais
+              ) as total1,
+
+(
+
+select temporal1.pais pais , min(temporal1.suma) min  from
+(select
+
+             p.nombre_pais                          pais,
+
+             Partido.Nombre_Partido                 partido,
+       sum(r.Alfabetas) + sum(r.Analafabetas) suma
+      from partido
+               inner join resultado r on partido.ID_partido = r.Id_Partido
+               inner join municipio m on r.Id_Municipio = m.ID_Municipio
+               inner join departamento d on m.ID_departamento = d.ID_Departamento
+               inner join region r2 on d.ID_REGION = r2.ID_Region
+               inner join pais p on r2.ID_PAIS = p.ID_PAIS
+               inner join eleccion e on p.ID_PAIS = e.id_pais
+      group by p.nombre_pais, Partido.Nombre_Partido)  as temporal1
+group by  temporal1.pais) total2
+
+where total1.pais=total2.pais order by  Diferencia asc limit 1
+
 
 --consulta 11
 
