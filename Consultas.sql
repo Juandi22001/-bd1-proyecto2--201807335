@@ -95,6 +95,62 @@ WHERE TOTAL1.pais=TOTAL2.PAIS
          group by p.nombre_pais, r.nombre_Region
          order by p.nombre_pais
 
+-- consulta 3
+
+
+SElect TOTALF.PAIS , totalF.partido,max(totalF.count)  FROM
+(select total2.pais pais,total2.partido partido ,count(*)   count from
+
+
+(select temp1.pais pais,temp1.departamento, temp1.municpio municipio, max(temp1.suma) suma
+from (select
+
+             p.nombre_pais                          pais,
+             d.nombre_Departamento                  departamento,
+             m.nombre_Municipio                     municpio,
+             Partido.Nombre_Partido                 partido,
+             partido.ID_partido                     idpartido,
+             sum(r.Alfabetas) + sum(r.Analafabetas) suma
+      from partido
+               inner join resultado r on partido.ID_partido = r.Id_Partido
+               inner join municipio m on r.Id_Municipio = m.ID_Municipio
+               inner join departamento d on m.ID_departamento = d.ID_Departamento
+               inner join region r2 on d.ID_REGION = r2.ID_Region
+               inner join pais p on r2.ID_PAIS = p.ID_PAIS
+               inner join eleccion e on p.ID_PAIS = e.id_pais
+      group by p.nombre_pais,d.nombre_Departamento, m.nombre_Municipio,partido.ID_partido, Partido.Nombre_Partido) temp1
+group by temp1.pais,temp1.departamento, temp1.municpio
+
+    ) as total1
+
+
+
+
+
+
+
+inner join (
+
+select p.nombre_pais                          pais,
+             d.nombre_Departamento                  departamento,
+             m.nombre_Municipio                     municpio,
+             Partido.Nombre_Partido                 partido,
+             partido.ID_partido                     idpartido,
+             sum(r.Alfabetas) + sum(r.Analafabetas) suma
+      from partido
+               inner join resultado r on partido.ID_partido = r.Id_Partido
+               inner join municipio m on r.Id_Municipio = m.ID_Municipio
+               inner join departamento d on m.ID_departamento = d.ID_Departamento
+               inner join region r2 on d.ID_REGION = r2.ID_Region
+               inner join pais p on r2.ID_PAIS = p.ID_PAIS
+               inner join eleccion e on p.ID_PAIS = e.id_pais
+      group by p.nombre_pais,d.nombre_Departamento, m.nombre_Municipio,partido.ID_partido, Partido.Nombre_Partido
+
+    ) as total2
+on total1.pais=total2.pais and total1.departamento=total2.departamento and total1.municipio=total2.municpio and total1.suma=total2.suma
+group by  total2.pais,total2.idpartido,total2.partido) AS totalF
+group by  totalF.pais
+
 
 --consulta 4 
 
