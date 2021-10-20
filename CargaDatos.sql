@@ -38,17 +38,11 @@ from temporal,
 where  temporal.Departamento= Departamento.nombre_Departamento
 
 --LLENANDO LA TABLA PARTIDO 18
-Insert into partido(  Nombre_Partido, Partido, ID_Pais)
-Select distinct temporal.Nombre_paritdo,temporal.Partido,PAIS.ID_PAIS
-from temporal,
-     PAIS
-where  TEMPORAL.PAIS= PAIS.nombre_pais;
 
---LLENANDO LA TABLA TIPO DE ELECCION 1
-
-Insert into tipo_eleccion( TipoEleccion )
-Select distinct  temporal.nombre_eleccion
+Insert into partido(  Nombre_Partido, Partido)
+Select distinct temporal.Nombre_paritdo,temporal.Partido
 from temporal;
+
 
 --LLENANDO TABLA ELECCION 6
 
@@ -64,11 +58,11 @@ INSERT INTO SEXO( SEXO) SELECT  DISTINCT  TEMPORAL.SEXO FROM TEMPORAL;
 --LLENANDO LA TABLA RAZA 3 RESULTADOS 
 INSERT INTO RAZA( RAZA) SELECT  DISTINCT  TEMPORAL.RAZA FROM TEMPORAL;
 
--- Llenando la tabla    resultados 
+-- Llenando la tabla    resultados  20970
 
 
 
-INSERT INTO Resultado(analafabetas, alfabetas, primaria, nivel_medio, universitarios, id_municipio, id_eleccion, id_sexo, id_raza
+INSERT INTO Resultado(analafabetas, alfabetas, primaria, nivel_medio, universitarios, id_municipio, id_eleccion, id_sexo, id_raza,Id_Partido
                     )
 Select temporal.Analfabetos,
        TEMPORAL.Alfabetos,
@@ -79,7 +73,7 @@ Select temporal.Analfabetos,
        Municipio.ID_Municipio,
 
        eleccion.ID_Eleccion,
-        s.id_sexo,r.id_raza
+        s.id_sexo,r.id_raza,p.ID_partido
 
 from temporal
          inner join pais on temporal.pais = pais.nombre_pais
@@ -94,6 +88,7 @@ from temporal
 
          inner join sexo s on temporal.Sexo = s.sexo
          inner join raza r on temporal.Raza = r.RAZA
+          inner join partido p on temporal.Partido = p.Partido
 
 ;
 
