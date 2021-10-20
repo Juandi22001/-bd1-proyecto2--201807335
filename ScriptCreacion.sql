@@ -90,14 +90,7 @@ create table Partido (
 
 );
 
-create table Tipo_Eleccion (
-    ID_TipoEleccion  INT AUTO_INCREMENT,
- TipoEleccion VARCHAR(100),
-  PRIMARY KEY (ID_TipoEleccion)
 
-
-
-);
 create table Eleccion
 (
     ID_Eleccion  INT AUTO_INCREMENT,
@@ -122,14 +115,12 @@ create table Sexo
 (
     Id_Sexo   INT AUTO_INCREMENT,
 
-    Id_Municipio   INT,
-    Id_Eleccion    INT,
+  
     sexo varchar(100),
 
         PRIMARY KEY (Id_Sexo),
 
-    Foreign key (Id_Eleccion) references eleccion (ID_Eleccion),
-    Foreign key (Id_Municipio) references municipio (id_municipio)
+  
 
 
 );
@@ -137,14 +128,12 @@ create table Raza
 (
     Id_Raza   INT AUTO_INCREMENT,
 
-    Id_Municipio   INT,
-    Id_Eleccion    INT,
+
     RAZA VARCHAR(100),
 
         PRIMARY KEY (Id_Raza),
 
-    Foreign key (Id_Eleccion) references eleccion (ID_Eleccion),
-    Foreign key (Id_Municipio) references municipio (id_municipio)
+
 
 
 );
@@ -160,14 +149,16 @@ create table Resultado
     Id_Municipio   INT,
     Id_Eleccion    INT,
     Id_Partido INT ,
+    id_raza int, id_Sexo int,
 
     PRIMARY KEY (Id_Resultado),
 
     Foreign key (Id_Eleccion) references eleccion (ID_Eleccion),
     Foreign key (Id_Municipio) references municipio (id_municipio),
-  Foreign key (Id_Partido) references Partido (id_partido)
+  Foreign key (Id_Partido) references Partido (id_partido),
+  Foreign key (id_Sexo) references sexo (id_sexo),
+  Foreign key (Id_raza ) references raza (id_raza)
 
 );
-
 
 
