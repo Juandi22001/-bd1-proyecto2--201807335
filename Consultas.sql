@@ -1,7 +1,7 @@
 --consulta1 
 select  total1.tipoEleccion,total1.Aeleccion,total1.pais,total1.partido,total1.max *100/total2.SUMA  from
 (select temp1.tipoEleccion tipoEleccion ,temp1.Aeleccion Aeleccion,temp1.pais pais,temp1.partido partido,max(temp1.suma) max from
-(select  pais.nombre_pais pais,e.TipoEleccion tipoEleccion,e.AÑO_ELECCION Aeleccion,P.Partido partido,  sum(r.Analafabetas)+sum(r.Alfabetas) suma from pais
+(select  pais.nombre_pais pais,e.TipoEleccion tipoEleccion,e.AÑO_ELECCION Aeleccion,P.Nombre_Partido partido,  sum(r.Analafabetas)+sum(r.Alfabetas) suma from pais
 inner join eleccion e on pais.ID_PAIS = e.id_pais
 inner join resultado r on e.ID_Eleccion = r.Id_Eleccion
 inner join partido p on r.Id_Partido = p.ID_partido
@@ -32,6 +32,69 @@ select p.nombre_pais                                            pais,
  where total1.pais=total2.pais
 
 group by  total1.pais
+-- consulta 2
+
+
+select total1.pais, total1.nombre_Departamento,TOTAL1.SUMA AS MUJERES_ANALFABETAS, total1.SUMA*100/total2.SUMA  AS PORCENTAJE  from (
+
+select p.nombre_pais                                            pais,
+           d.nombre_Departamento,
+
+            s.sexo,
+             ( sum(resultado.Alfabetas)+sum(resultado.Analafabetas)) SUMA
+      FROM sexo s
+               inner join resultado on s.Id_Sexo = resultado.id_Sexo
+
+               inner join municipio m on resultado.Id_Municipio = m.ID_Municipio
+               inner join departamento d on m.ID_departamento = d.ID_Departamento
+               inner join region r on d.ID_REGION = r.ID_Region
+               inner join pais p on r.ID_PAIS = p.ID_PAIS
+
+    where s.sexo='mujeres'
+      group by p.nombre_pais,d.nombre_Departamento, s.sexo
+      order by p.nombre_pais) as total1 ,
+
+
+(
+
+select p.nombre_pais                                            pais,
+
+
+             ( sum(resultado.Alfabetas)+sum(resultado.Analafabetas)) SUMA
+      FROM   resultado
+
+               inner join municipio m on resultado.Id_Municipio = m.ID_Municipio
+               inner join departamento d on m.ID_departamento = d.ID_Departamento
+               inner join region r on d.ID_REGION = r.ID_Region
+               inner join pais p on r.ID_PAIS = p.ID_PAIS
+               inner join sexo s on resultado.id_sexo = s.Id_Sexo
+
+                 where s.sexo='mujeres'
+
+
+
+      group by p.nombre_pais
+      order by p.nombre_pais) as total2
+WHERE TOTAL1.pais=TOTAL2.PAIS
+;
+
+
+
+
+  select p.nombre_pais                                            pais,
+                r.nombre_Region                                          region,
+
+                (sum(resultado.Alfabetas) + sum(resultado.Analafabetas)) SUMA
+         from resultado
+                  inner join municipio m on resultado.Id_Municipio = m.ID_Municipio
+                  inner join departamento d on m.ID_departamento = d.ID_Departamento
+                  inner join region r on d.ID_REGION = r.ID_Region
+                  inner join pais p on r.ID_PAIS = p.ID_PAIS
+                  inner join eleccion e on p.ID_PAIS = e.id_pais
+
+         group by p.nombre_pais, r.nombre_Region
+         order by p.nombre_pais
+
 
 --consulta 4 
 
