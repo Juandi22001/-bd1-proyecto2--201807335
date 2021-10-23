@@ -195,11 +195,65 @@ from (select temp1.pais pais, temp1.region region, max(temp1.suma) maximo
         total2.RAZA = 'INDIGENAS'
 
 ORDER BY total1.PAIs
+
+--consulta 5
+use proyecto2bases;
+SELECT totalU.pais, totalU.departamento, totalU.municpio, totalU.suma
+from (select p.nombre_pais         pais,
+             d.nombre_Departamento departamento,
+             m.nombre_Municipio    municpio,
+
+             sum(r.Universitarios) suma
+      from partido
+               inner join resultado r on partido.ID_partido = r.Id_Partido
+               inner join municipio m on r.Id_Municipio = m.ID_Municipio
+               inner join departamento d on m.ID_departamento = d.ID_Departamento
+               inner join region r2 on d.ID_REGION = r2.ID_Region
+               inner join pais p on r2.ID_PAIS = p.ID_PAIS
+               inner join eleccion e on p.ID_PAIS = e.id_pais
+      group by p.nombre_pais, d.nombre_Departamento, m.nombre_Municipio) as totalU
+         inner join
+
+
+     (select p.nombre_pais          pais,
+             d.nombre_Departamento  departamento,
+             m.nombre_Municipio     municpio,
+
+             sum(r.Primaria) suma
+      from partido
+               inner join resultado r on partido.ID_partido = r.Id_Partido
+               inner join municipio m on r.Id_Municipio = m.ID_Municipio
+               inner join departamento d on m.ID_departamento = d.ID_Departamento
+               inner join region r2 on d.ID_REGION = r2.ID_Region
+               inner join pais p on r2.ID_PAIS = p.ID_PAIS
+               inner join eleccion e on p.ID_PAIS = e.id_pais
+      group by p.nombre_pais, d.nombre_Departamento, m.nombre_Municipio) AS totalPrimaria1
+     ON totalU.suma > totalPrimaria1.SUMA AND totalU.pais = totalPrimaria1.pais AND
+        totalU.departamento = totalPrimaria1.departamento
+         AND totalU.municpio = totalPrimaria1.municpio
+         INNER JOIN
+
+
+     (
+         select p.nombre_pais            pais,
+                d.nombre_Departamento    departamento,
+                m.nombre_Municipio       municpio,
+
+                sum(r.Nivel_Medio)  suma
+         from partido
+                  inner join resultado r on partido.ID_partido = r.Id_Partido
+                  inner join municipio m on r.Id_Municipio = m.ID_Municipio
+                  inner join departamento d on m.ID_departamento = d.ID_Departamento
+                  inner join region r2 on d.ID_REGION = r2.ID_Region
+                  inner join pais p on r2.ID_PAIS = p.ID_PAIS
+                  inner join eleccion e on p.ID_PAIS = e.id_pais
+         group by p.nombre_pais, d.nombre_Departamento, m.nombre_Municipio) totalMedio
+     ON totalU.suma < totalMedio.SUMA AND totalU.pais = totalMedio.pais AND
+        totalU.departamento = totalMedio.departamento
+         AND totalU.municpio = totalMedio.municpio
+group by  totalU.pais, totalU.departamento, totalU.municpio;
 --consulta 6
-
-
-
-select total2.departamento,total2.SEXO,total2.suma *100 /total1.SUMA from (
+select total2.departamento,total2.SEXO,total2.suma *100 /total1.SUMA total from (
   select p.nombre_pais                                            pais,
                 d.nombre_Departamento                                          departamento,
 
@@ -260,6 +314,7 @@ select total2.departamento,total2.SEXO,total2.suma *100 /total1.SUMA from (
 
 
   order by  total2.departamento
+
 --consulta7
 select total1.pais,total1.region , total1.SUMA/total2.nDepartamentos
 from (
