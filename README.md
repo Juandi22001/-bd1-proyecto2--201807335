@@ -48,87 +48,26 @@ Gracias a la normalización aplicada tendremos la creación de las siguientes ta
 
  ![efe](https://github.com/Juandi22001/Predicas/blob/master/MUNICIPIO.JPG?raw=true)
 
-### Segunda  Normalización
+### TERCERA  Normalización
 
-Para comenzar , primero que nada analizaremos las columnas que se encuentran seleccionadas que son las de PAIS, REGION , DEPARTAMENTO  Y MUNICIPIO  aplicando una regla de normalización se crearan tablas para cada una de las columnas seleccionadas  y aplicando  la segunda forma normal se agregara una única clave que logre unir las tablas .
- 
+Como segunda Normalización podemos observar que tanto en las columnas RAZA , como en la columna SEXO  se logra ver con claridad que  es necesario aplicar la primera regla Normal  y así eliminar todos  aquellos datos que se encuentran repetidos así relacionar  todos estos campos con nuestra tabla "RESULTADO" que fue creada con anterioridad  y así manejar de una mejor manera los datos  .
 
-_Bien ahora continuando el analisis podemos notar que las tablas PAIS, REGION y DEPTO repiten datos con el mismo nombre entre las filas por lo cual aplicando la segunda normalización debemos separarlas y colocar un codigo en su lugar en la tabla principal obteniendo asi 2 tablas la tabla votos y la tabla DEPTO_
 
-![](./IMG/IMG9.png)
-![](./IMG/IMG10.png)
+ ![efe](https://github.com/Juandi22001/Predicas/blob/master/Temporal_raza_sexo.JPG?raw=true)
+
+_Con  la normalización aplicada se crearan las siguientes tablas:
+
+## TABLA RAZA
+
+ ![efe](https://github.com/Juandi22001/Predicas/blob/master/RAZA.JPG?raw=true)
+
+## TABLA  SEXO
+
+ ![efe](https://github.com/Juandi22001/Predicas/blob/master/SEXO.JPG?raw=true)
+
 
 _Bien ahora analizando la tabla DEPTO podemos notar que aun hay redundancia de datos por lo cual aplicaremos 2da forma normal generando 3 nuevas tablas PAIS, DEPTO y REGION_
 
-#### DEPTO
-![](./IMG/IMG6.png)
-#### REGION
-
-![](./IMG/IMG7.png)
-#### PAIS
-
-![](./IMG/IMG8.png)
-
-_Con la aplicación anterior nos queda la siguiente tabla voto_
-
-![](./IMG/IMG11.png)
-
-
-_Ahora podemos notar que el Partido y el Nombre\_partido se relacionan y generan a su vez redundancia de datos por lo cual incumplen la primera forma normal por la cual la aplicaremos y crearemos su propia tabla, obteniendo asi la tabla Partido_
-
-#### Partido
-![](./IMG/img12.png)
-
-_Ahora nuestra tabla queda de la siguiente manera_
-
-![](./IMG/IMG13.png)
-
-_Ahora aplicando nuevamente la primera forma normal vamos a separar en diferentes tablas los datos ELECCION, AÑO\_ELECCION, SEXO Y RAZA generando asi 2 tablas distintas. en este caso en especifico sexo unicamente tendra 2 campos siempre por lo cual no lo separamos en otra tabla si no lo dejamos como un campo_
-
-#### ELECCION
-![](./IMG/IMG14.png)
-
-#### RAZA
-![](./IMG/IMG15.png)
-
-_Ahora eliminaremos los datos repetidos en las tablas_
-
-#### ELECCION
-![](./IMG/IMG16.png)
-
-#### RAZA
-![](./IMG/IMG17.png)
-
-#### Partido
-![](./IMG/IMG18.png)
-
-_Nos queda la tabla voto de esta forma_
-
-![](./IMG/IMG19.png)
-
-_Ahora podemos observar que nos quedan los campos PARTIDO, RAZA, NOMBRE\_ELECCION, ANO\_ELECCION que no depende de la tabla si no de otras tablas ya generadas por lo cual aplicaremos la 2da forma normal y colocaremos sus codigos de identificación_
-
-![](./IMG/IMG20.png)
-
-_Analizando nuevamente la tabla de elección, podemos notar que el año cambia generando redundancia en el nombre de las elecciones por lo cual es necesario separarlo utilizamos la 2da forma normal para esto. generando una segunda tabla llamada tipo\_eleccion_
-
-![](./IMG/IMG21.png)
-
-_La separación quedaria asi_
-
-#### Eleccion
-![](./IMG/IMG23.png)
-#### Tipo_eleccion
-![](./IMG/IMG22.png)
-
-_Analizando nuevamente la tabla de voto podemos observar que el campo de MUNICIPIO no pertenece exacamente a esta tabla si no depende tambien de otra por lo cual crearemos una nueva tabla y haremos la 3ra normalización quedando la siguiente tabla_
-
-#### MUNICIPIO
-
-![](./IMG/IMG24.png)
-
-_Y finalmente asi quedaria la tabla de voto_
-![](./IMG/img25.png)
 
 
 ## Generación del ER
