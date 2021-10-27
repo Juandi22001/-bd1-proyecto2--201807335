@@ -3,11 +3,7 @@
 
 ## Sistemas de Bases de Datos 1
 
-### Estudiante:
-
 |    Nombre    Juan Diego Alvarado Salguero  |   201807335   |
-
-
 
 En el siguiente proyecto se solicito desarrollar un modelo relacional para así cubrir la necesidad de tener un sistema totalmente escalable y que sea totalmente optimo.
 En esta ocasión el Instituto Centroamericano electoral (ICE) solicito ayuda para poder realizar la reingeniería del proceso de almacenamiento debido que actualmente existe una gran inconsistencia que en un futuro les presentara serios problemas legales. 
@@ -25,7 +21,7 @@ _La entidad relación será optimizada por medio de normas de normalización pre
 
 
 ### Primera Normalización
-
+--- 
 Para comenzar , primero que nada analizaremos las columnas que se encuentran seleccionadas que son las de PAIS, REGION , DEPARTAMENTO  Y MUNICIPIO  aplicando una regla de normalización se crearan tablas para cada una de las columnas seleccionadas  y aplicando  la segunda forma normal se agregara una única clave que logre unir las tablas .
  ![efe](https://github.com/Juandi22001/Predicas/blob/master/proyecto2_imagen1.JPG?raw=true)
 Gracias a la normalización aplicada tendremos la creación de las siguientes tablas:
@@ -47,10 +43,18 @@ Gracias a la normalización aplicada tendremos la creación de las siguientes ta
 ## TABLA  MUNICIPIO
 
  ![efe](https://github.com/Juandi22001/Predicas/blob/master/MUNICIPIO.JPG?raw=true)
+### Segunda Normalización
+--- 
+Si analizamos  detalladamente las columnas seleccionadas  se  logra ver que  dichos campos se repiten y es por eso  que es necesario   aplicar la normalización . Esto da como resultado la creación de una nueva tabla que se llamara "RESULTADO"  donde pondremos  en cada columna todos los campos a los que se les aplico la normalización de la tabla temporal.
+![efe](https://github.com/Juandi22001/Predicas/blob/master/r1.JPG?raw=true)
 
+--- 
+TABLA RESULTADO:
+
+![efe](https://github.com/Juandi22001/Predicas/blob/master/resultado.JPG?raw=true)
 ### TERCERA  Normalización
-
-Como segunda Normalización podemos observar que tanto en las columnas RAZA , como en la columna SEXO  se logra ver con claridad que  es necesario aplicar la primera regla Normal  y así eliminar todos  aquellos datos que se encuentran repetidos así relacionar  todos estos campos con nuestra tabla "RESULTADO" que fue creada con anterioridad  y así manejar de una mejor manera los datos  .
+--- 
+Como tercera Normalización podemos observar que tanto en las columnas RAZA , como en la columna SEXO  se logra ver con claridad que  es necesario aplicar la primera regla Normal  y así eliminar todos  aquellos datos que se encuentran repetidos así relacionar  todos estos campos con nuestra tabla "RESULTADO" que fue creada con anterioridad  y así manejar de una mejor manera los datos  .
 
 
  ![efe](https://github.com/Juandi22001/Predicas/blob/master/Temporal_raza_sexo.JPG?raw=true)
@@ -66,11 +70,7 @@ _Con  la normalización aplicada se crearan las siguientes tablas:
  ![efe](https://github.com/Juandi22001/Predicas/blob/master/SEXO.JPG?raw=true)
 
 
-_Bien ahora analizando la tabla DEPTO podemos notar que aun hay redundancia de datos por lo cual aplicaremos 2da forma normal generando 3 nuevas tablas PAIS, DEPTO y REGION_
 
 
+## MODELO ENTIDAD RELACIÓN
 
-## Generación del ER
-_Con todas las tablas ya normalizadas ya podemos continuar con la generación de la Entidad relación quedandonos de la siguiente manera_
-
-![](./IMG/ER.png)
