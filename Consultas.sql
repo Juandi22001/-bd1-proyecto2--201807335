@@ -1,14 +1,16 @@
 --consulta1 
-select  total1.tipoEleccion,total1.Aeleccion,total1.pais,total1.partido,total1.max *100/total2.SUMA  from
+select  total1.tipoEleccion,total1.Aeleccion,total1.pais,total1.partido,total1.max *100/total2.SUMA total  from
 (select temp1.tipoEleccion tipoEleccion ,temp1.Aeleccion Aeleccion,temp1.pais pais,temp1.partido partido,max(temp1.suma) max from
 (select  pais.nombre_pais pais,e.TipoEleccion tipoEleccion,e.AÑO_ELECCION Aeleccion,P.Nombre_Partido partido,  sum(r.Analafabetas)+sum(r.Alfabetas) suma from pais
 inner join eleccion e on pais.ID_PAIS = e.id_pais
 inner join resultado r on e.ID_Eleccion = r.Id_Eleccion
 inner join partido p on r.Id_Partido = p.ID_partido
-group by  pais.nombre_pais,e.Tipoeleccion, e.AÑO_ELECCION, P.Partido
-order by  pais.nombre_pais ) temp1
+group by  e.Tipoeleccion, e.AÑO_ELECCION,pais.nombre_pais, P.Nombre_Partido
+order by  pais.nombre_pais,suma desc) temp1
 
-group by  temp1.pais) total1,
+group by  temp1.pais ) total1,
+
+
 
 
 
@@ -24,14 +26,14 @@ select p.nombre_pais                                            pais,
                inner join departamento d on m.ID_departamento = d.ID_Departamento
                inner join region r on d.ID_REGION = r.ID_Region
                inner join pais p on r.ID_PAIS = p.ID_PAIS
-               inner join sexo s on resultado.id_sexo = s.Id_Sexo
+
 
 
       group by p.nombre_pais
       order by p.nombre_pais) total2
  where total1.pais=total2.pais
 
-group by  total1.pais
+group by  total1.pais order by total1.pais , Total;
 -- consulta 2
 
 
