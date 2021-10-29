@@ -255,11 +255,17 @@ from (select p.nombre_pais         pais,
          AND totalU.municpio = totalMedio.municpio
 group by  totalU.pais, totalU.departamento, totalU.municpio;
 --consulta 6
-select total2.departamento,total2.SEXO,total2.suma *100 /total1.SUMA total from (
+
+
+
+
+
+
+select total2.departamento,total2.SEXO,total2.suma *100 /total1.SUMA total,total2.sexoh,total2.sumah *100 /total1.SUMA total2 from (
   select p.nombre_pais                                            pais,
                 d.nombre_Departamento                                          departamento,
 
-                (sum(resultado.Universitarios)) SUMA
+                (sum(resultado.Analafabetas)+sum(resultado.Alfabetas)) SUMA
          from resultado
                   inner join municipio m on resultado.Id_Municipio = m.ID_Municipio
                   inner join departamento d on m.ID_departamento = d.ID_Departamento
@@ -273,7 +279,7 @@ select total2.departamento,total2.SEXO,total2.suma *100 /total1.SUMA total from 
 
 
 
-(SELECT totalm.pais pais,totalM.departamento departamento,totalM.SEXO sexo,totalM.SUMA suma from
+(SELECT totalm.pais pais,totalM.departamento departamento,totalM.SEXO sexo,totalM.SUMA suma ,totalH.SEXO sexoh,totalH.SUMA sumah  from
 (select p.nombre_pais                                            pais,
                 d.nombre_Departamento                                          departamento,
                 sexo.sexo SEXO,
@@ -315,7 +321,7 @@ select total2.departamento,total2.SEXO,total2.suma *100 /total1.SUMA total from 
  where total1.departamento= total2.departamento
 
 
-  order by  total2.departamento
+  order by  total2.departamento;
 
 --consulta7
 select total1.pais,total1.region , total1.SUMA/total2.nDepartamentos
