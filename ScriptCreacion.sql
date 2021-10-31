@@ -1,5 +1,18 @@
 
 use Proyecto2Bases;
+
+DROP TABLE resultado;
+DROP TABLE sexo;
+
+drop table raza;
+drop table eleccion;
+drop table partido;
+drop table municipio;
+drop table departamento;
+drop table region;
+drop table pais;
+
+
 CREATE TABLE
     temporal
 (
@@ -33,6 +46,9 @@ CREATE TABLE
 
 
 );
+
+use proyecto2bases;
+
 
 
 create table Pais (
@@ -83,8 +99,8 @@ create table Partido (
   Partido VARCHAR(100),
 
   ID_Pais INT,
-  PRIMARY KEY (ID_partido),
-  FOREIGN KEY  (ID_Pais) REFERENCES  Pais (ID_Pais)
+  PRIMARY KEY (ID_partido)
+
 
 
 
@@ -115,12 +131,12 @@ create table Sexo
 (
     Id_Sexo   INT AUTO_INCREMENT,
 
-  
+
     sexo varchar(100),
 
-        PRIMARY KEY (Id_Sexo),
+        PRIMARY KEY (Id_Sexo)
 
-  
+
 
 
 );
@@ -131,7 +147,7 @@ create table Raza
 
     RAZA VARCHAR(100),
 
-        PRIMARY KEY (Id_Raza),
+        PRIMARY KEY (Id_Raza)
 
 
 
@@ -160,5 +176,3 @@ create table Resultado
   Foreign key (Id_raza ) references raza (id_raza)
 
 );
-
-
