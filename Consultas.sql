@@ -230,7 +230,7 @@ from (select p.nombre_pais         pais,
                inner join pais p on r2.ID_PAIS = p.ID_PAIS
                inner join eleccion e on p.ID_PAIS = e.id_pais
       group by p.nombre_pais, d.nombre_Departamento, m.nombre_Municipio) AS totalPrimaria1
-     ON totalU.suma > totalPrimaria1.SUMA AND totalU.pais = totalPrimaria1.pais AND
+     ON totalU.suma > totalPrimaria1.SUMA*0.25 AND totalU.pais = totalPrimaria1.pais AND
         totalU.departamento = totalPrimaria1.departamento
          AND totalU.municpio = totalPrimaria1.municpio
          INNER JOIN
@@ -250,10 +250,12 @@ from (select p.nombre_pais         pais,
                   inner join pais p on r2.ID_PAIS = p.ID_PAIS
                   inner join eleccion e on p.ID_PAIS = e.id_pais
          group by p.nombre_pais, d.nombre_Departamento, m.nombre_Municipio) totalMedio
-     ON totalU.suma < totalMedio.SUMA AND totalU.pais = totalMedio.pais AND
+     ON totalU.suma < totalMedio.SUMA*0.3 AND totalU.pais = totalMedio.pais AND
         totalU.departamento = totalMedio.departamento
          AND totalU.municpio = totalMedio.municpio
 group by  totalU.pais, totalU.departamento, totalU.municpio;
+
+
 --consulta 6
 
 
