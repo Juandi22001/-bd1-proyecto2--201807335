@@ -1,10 +1,9 @@
-
---LLENANDO LA TABLA PAIS 6 paises
+use proyecto2bases;
 
 Insert into PAIS(  nombre_pais )
 Select distinct  temporal.pais from temporal;
 
---LLENANDO LA TABLA REGION 22 regiones
+##LLENANDO LA TABLA REGION 22 regiones
 
 
 
@@ -35,7 +34,7 @@ Insert into municipio( nombre_Municipio, ID_departamento)
 Select distinct temporal.Municipio,Departamento.ID_DEPARTAMENTO
 from temporal,
      departamento
-where  temporal.Departamento= Departamento.nombre_Departamento
+where  temporal.Departamento= Departamento.nombre_Departamento;
 
 --LLENANDO LA TABLA PARTIDO 18
 
@@ -55,7 +54,7 @@ where  temporal.pais=pais.nombre_pais
 
 --LLENANDO LA TABLA SEXO  2
 INSERT INTO SEXO( SEXO) SELECT  DISTINCT  TEMPORAL.SEXO FROM TEMPORAL;
---LLENANDO LA TABLA RAZA 3 RESULTADOS 
+--LLENANDO LA TABLA RAZA 3 RESULTADOS
 INSERT INTO RAZA( RAZA) SELECT  DISTINCT  TEMPORAL.RAZA FROM TEMPORAL;
 
 -- Llenando la tabla    resultados  20970
@@ -91,4 +90,3 @@ from temporal
           inner join partido p on temporal.Partido = p.Partido
 
 ;
-
