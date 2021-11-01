@@ -73,4 +73,5 @@ _Con  la normalización aplicada se crearan las siguientes tablas:
 
 
 ## MODELO ENTIDAD RELACIÓN
+ ![efe](https://github.com/Juandi22001/Predicas/blob/master/DIAGRAMA_PROYECTO2.png?raw=true)
 
